@@ -1,0 +1,18 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.category-container.my-4
+    .row
+      .col-12
+        +box-head(pageTitle)
+
+    .row.g-4
+      each item in categories
+        .col-md-6.col-lg-4
+          a.category-card(href=`/${item.slug}`)
+            .category-card-inner.card.shadow-sm.border-0
+              img.category-card-img.card-img-top(src=item.image, alt=item.title)
+              .card-body
+                h5.category-card-title.text-primary #{item.title}
+                p.category-card-text.text-muted #{item.description}

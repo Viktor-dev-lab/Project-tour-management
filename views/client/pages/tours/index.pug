@@ -2,11 +2,23 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main
-  .container.my-3.mx-3 
+  .container.tour-container.my-4
     .row
       .col-12
         +box-head(pageTitle)
 
-    ul
+    .row.g-4
       each item in tours
-        li #{item.title}
+        .col-md-6.col-lg-4
+          .tour-card.shadow-sm.border-0
+            a(href=`/${item.slug}`)
+              img.tour-card-img.card-img-top(src=JSON.parse(item.images)[0], alt=item.title)
+            .card-body
+              h5.tour-card-title.text-primary #{item.title}
+              p.tour-card-text.text-muted #{item.information}
+              p.tour-price.text-danger Giá: #{(item.price * (1 - item.discount / 100)).toLocaleString()} VND
+              p.tour-stock Số chỗ còn lại: #{item.stock}
+              p.tour-schedule
+                strong Lịch trình:
+                pre.tour-schedule-text= item.schedule
+              a.btn.btn-primary.mt-2(href=`/${item.slug}`) Xem chi tiết
