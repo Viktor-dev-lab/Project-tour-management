@@ -1,0 +1,109 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main.main {
+  flex: 1;  /* Giúp đẩy footer xuống */
+}
+
+/* Header */
+.logo {
+  max-height: 50px; /* Giới hạn chiều cao logo */
+}
+
+.navbar-nav .nav-link {
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #1db954; /* Màu xanh đặc trưng của Spotify */
+}
+/* Custom Navbar */
+.navbar-custom {
+  background: linear-gradient(135deg, #4682B4, #5A9BD3);
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hiệu ứng Hover */
+.navbar-custom:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Hiệu ứng cho menu */
+.nav-link {
+  position: relative;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff !important;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng lướt sóng khi hover */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  width: 0;
+  height: 3px;
+  background: #FFD700;
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+/* Hiệu ứng phóng to khi hover */
+.nav-link:hover {
+  color: #FFD700 !important;
+  transform: scale(1.1);
+}
+
+/* End Header */
+
+/* Footer */
+.footer-logo {
+  max-height: 50px;
+}
+
+.footer a {
+  transition: color 0.3s ease-in-out;
+}
+
+.footer a:hover {
+  color: #1db954; /* Màu xanh của Spotify */
+}
+
+.footer .fab {
+  font-size: 20px;
+}
+
+/* Hiệu ứng hover cho liên kết */
+.footer-link {
+  transition: color 0.3s ease-in-out;
+}
+.footer-link:hover {
+  color: #FFD700; /* Màu vàng gold */
+}
+
+/* Hiệu ứng hover cho icon mạng xã hội */
+.footer-social i {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.footer-social:hover i {
+  transform: scale(1.2);
+  color: #FFD700; /* Màu vàng gold */
+}
+
+/* End Footer */

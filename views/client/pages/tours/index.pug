@@ -1,12 +1,12 @@
-doctype doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Danh Sach Tour
-  body 
-    h1 Trang Danh Sach Tour
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 
-    ul 
-      each item in tours 
+block main
+  .container.my-3.mx-3 
+    .row
+      .col-12
+        +box-head(pageTitle)
+
+    ul
+      each item in tours
         li #{item.title}

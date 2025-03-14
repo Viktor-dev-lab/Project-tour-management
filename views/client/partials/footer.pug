@@ -1,0 +1,40 @@
+footer.footer.text-white.py-4(style="background-color:rgb(70, 109, 151);") 
+  .container
+    .row
+
+      //- Cột 1: Logo + mô tả
+      .col-md-4.text-center.text-md-start
+        a(href="/")
+          img(src="/images/logo.png", alt="Travel Logo", class="footer-logo mb-3", style="height: 50px;")
+        p.small.mt-2 Exploring the world, one trip at a time. 🌍✈️
+
+      //- Cột 2: Liên kết điều hướng
+      .col-md-4.text-center
+        h5.text-uppercase.mb-3 Quick Links
+        ul.list-unstyled
+          li 
+            a.text-white.text-decoration-none.footer-link(href="/") Home
+          li
+            a.text-white.text-decoration-none.footer-link(href="/destinations") Destinations
+          li
+            a.text-white.text-decoration-none.footer-link(href="/tours") Tours
+          li
+            a.text-white.text-decoration-none.footer-link(href="/blog") Blog
+          li
+            a.text-white.text-decoration-none.footer-link(href="/contact") Contact
+
+      //- Cột 3: Mạng xã hội
+      .col-md-4.text-center.text-md-end
+        h5.text-uppercase.mb-3 Follow Us
+        .d-flex.justify-content-center.justify-content-md-end.gap-3
+          a.footer-social(href="https://facebook.com" target="_blank", style="color: #ffffff; background-color: #1877F2; padding: 8px 12px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;")
+            i.fab.fa-facebook-f
+          a.footer-social(href="https://twitter.com" target="_blank", style="color: #ffffff; background-color: #1DA1F2; padding: 8px 12px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;")
+            i.fab.fa-twitter
+          a.footer-social(href="https://instagram.com" target="_blank", style="color: #ffffff; background-color: #E1306C; padding: 8px 12px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;")
+            i.fab.fa-instagram
+
+
+    //- Dòng bản quyền
+    .text-center.mt-3
+      p.small.mb-0 Made with ❤️ by XuanLe | © 2025 Travel Explorer. All rights reserved.
