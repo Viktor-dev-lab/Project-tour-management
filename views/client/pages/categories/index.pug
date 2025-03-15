@@ -10,7 +10,7 @@ block main
     .row.g-4
       each item in categories
         .col-md-6.col-lg-4
-          a.category-card(href=`/${item.slug}`)
+          a.category-card(href=`/tours/${item.slug}`)
             .category-card-inner.card.shadow-sm.border-0
               img.category-card-img.card-img-top(src=item.image, alt=item.title)
               .card-body

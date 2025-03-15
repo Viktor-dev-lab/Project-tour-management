@@ -1,0 +1,80 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.tour-detail-container.my-5
+    .row
+      .col-12
+        +box-head(pageTitle)
+
+    if toursDetail
+      .row.g-5.align-items-center
+        .col-md-6
+          .tour-image-wrapper
+            img.img-fluid.w-100.shadow-lg.rounded-3.animated-img(src=toursDetail.images[0], alt=toursDetail.title)
+
+        .col-md-6
+          .tour-info.p-4.shadow-sm.rounded-3
+            h2.text-primary.fw-bold.animated-text #{toursDetail.title}
+            p.tour-code.text-muted Mã tour: #{toursDetail.code}
+
+            .price.mt-3
+              if toursDetail.discount > 0
+                del.text-danger.fs-5 #{toursDetail.price.toLocaleString()} đ
+                br
+                strong.text-success.fs-4 Giá khuyến mãi: #{toursDetail.price_special.toLocaleString()} đ
+              else
+                strong.text-primary.fs-4 Giá: #{toursDetail.price.toLocaleString()} đ
+
+            p.mt-3
+              strong Thông tin: 
+              span.text-muted.ms-2 #{toursDetail.information}
+
+            p.mt-3
+              strong Ngày khởi hành: 
+              span.text-muted.ms-2 #{new Date(toursDetail.timeStart).toLocaleDateString("vi-VN")}
+
+            p.mt-3
+              strong Số lượng còn: 
+              span.text-muted.ms-2 #{toursDetail.stock}
+
+            //- FORM GIỎ HÀNG
+            form#cartForm.mt-4(action="/cart/add", method="POST")
+              input(type="hidden", name="tour_id", value=toursDetail.id, min="1", max=toursDetail.stock)
+
+              .d-flex.align-items-center.gap-3
+                label.fw-bold.text-muted(for="quantity") Số lượng:
+                input#quantity.form-control.w-25.text-center(type="number", name="quantity", min="1", max=toursDetail.stock, value="1")
+
+              .mt-4
+                button.btn.btn-success.shadow-sm.btn-lg.animated-btn(type="submit") 🛒 Thêm vào giỏ
+                a.btn.btn-primary.shadow-sm.btn-lg.animated-btn.ms-3(href="/booking/#{toursDetail.slug}") 🚀 Đặt ngay
+
+      //- Lịch trình Tour - Hiển thị theo dạng Timeline chuyên nghiệp
+      .row.mt-5
+        .col-12
+          h3.text-center.text-uppercase.text-primary.mb-4 ⏳ Lịch Trình Chi Tiết
+
+        .col-12
+          .timeline
+            each day, index in toursDetail.schedule.split("\n")
+              .timeline-item
+                .timeline-icon
+                  i.fas.fa-calendar-day
+                .timeline-content
+                  h5 Ngày #{index + 1}
+                  p.text-muted #{day}
+
+      //- Hình ảnh khác của Tour
+      .row.mt-5
+        .col-12
+          h3.text-center.text-uppercase.text-primary.mb-4 📸 Hình ảnh khác
+        .col-12.d-flex.flex-wrap.justify-content-center
+          each imgUrl in toursDetail.images.slice(1)
+            .col-md-3.col-sm-4.col-6.p-2
+              .image-thumbnail-wrapper
+                img.img-thumbnail.w-100.rounded-3.shadow-sm.animated-img(src=imgUrl, alt="Hình ảnh tour")
+
+    else
+      .text-center.text-danger
+        h3 Tour không tồn tại!

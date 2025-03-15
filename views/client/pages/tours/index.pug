@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main
-  .container.tour-container.my-4
+  .container.tour-container.my-5
     .row
       .col-12
         +box-head(pageTitle)
@@ -10,15 +10,40 @@ block main
     .row.g-4
       each item in tours
         .col-md-6.col-lg-4
-          .tour-card.shadow-sm.border-0
-            a(href=`/${item.slug}`)
-              img.tour-card-img.card-img-top(src=JSON.parse(item.images)[0], alt=item.title)
-            .card-body
-              h5.tour-card-title.text-primary #{item.title}
-              p.tour-card-text.text-muted #{item.information}
-              p.tour-price.text-danger Giá: #{(item.price * (1 - item.discount / 100)).toLocaleString()} VND
-              p.tour-stock Số chỗ còn lại: #{item.stock}
-              p.tour-schedule
-                strong Lịch trình:
-                pre.tour-schedule-text= item.schedule
-              a.btn.btn-primary.mt-2(href=`/${item.slug}`) Xem chi tiết
+          .tour-card.shadow-lg.border-0.rounded-4.position-relative
+            a(href=`/tours/detail/${item.slug}`)
+              .tour-image-wrapper
+                img.tour-card-img.w-100.rounded-4.shadow-sm(src=item.images, alt=item.title)
+
+                if item.discount > 0
+                  .discount-badge.position-absolute.top-0.start-0.bg-danger.text-white.px-2.py-1.rounded-end
+                    | 🔥 -#{item.discount}%
+
+            .tour-info.p-3
+              h5.tour-card-title.text-primary.fw-bold #{item.title}
+              
+              .tour-meta.d-block.text-muted
+                .d-flex.align-items-center.gap-2
+                  i.fas.fa-map-marker-alt.text-danger
+                  span Tân Sân Nhất Airport
+
+                .d-flex.align-items-center.gap-2.mt-1
+                  i.fas.fa-clock.text-warning
+                  strong Ngày khởi hành: 
+                  span.text-muted.ms-2 #{new Date(item.timeStart).toLocaleDateString("vi-VN")}
+
+
+              .tour-price.mt-2.d-flex.align-items-center
+                if item.discount > 0
+                  del.text-danger.fs-6 #{item.price.toLocaleString()} VND
+                  strong.text-success.fs-5.ms-2 Giá: #{(item.price * (1 - item.discount / 100)).toLocaleString()} VND
+                else
+                  strong.text-primary.fs-5 Giá: #{item.price.toLocaleString()} VND
+
+              .tour-stock.text-muted.mt-2
+                | 🎟️ Số chỗ còn lại: 
+                strong.text-danger.ms-1 #{item.stock}
+
+              .tour-actions.mt-3.d-flex.justify-content-between.align-items-center
+                a.btn.btn-outline-primary.shadow-sm(href=`/tours/detail/${item.slug}`) 🔍 Xem chi tiết
+                a.btn.btn-success.shadow-sm(href=`/booking/${item.slug}`) 🛒 Đặt ngay
