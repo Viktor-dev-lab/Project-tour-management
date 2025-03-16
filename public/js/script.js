@@ -22,7 +22,6 @@ var swiper2 = new Swiper(".mySwiper2", {
 // Carts
 // Kiểm tra giỏ hàng trong localStorage
 let cart = localStorage.getItem("cart");
-
 // Nếu chưa có, tạo mới giỏ hàng rỗng
 if (!cart) {
   localStorage.setItem("cart", JSON.stringify([]));
@@ -36,32 +35,39 @@ if (formCart) {
   formCart.addEventListener("submit", (event) => {
     event.preventDefault(); // Ngăn chặn reload trang
 
-    const quantity = parseInt(event.target.elements.quantity.value);
-    const tourID = parseInt(event.target.elements.tour_id.value);
+    const quantity = parseInt(event.target.elements.quantity.value, 10);
+    const tourID = parseInt(event.target.elements.tour_id.value, 10);
 
     if (!tourID || quantity <= 0) {
-      alert("Vui lòng chọn số lượng hợp lệ!");
+      Swal.fire({
+        icon: "warning",
+        title: "Lỗi!",
+        text: "Vui lòng chọn số lượng hợp lệ!",
+      });
       return;
     }
 
-    // Thêm sản phẩm vào giỏ hàng
+    // Lấy giỏ hàng từ localStorage
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const indexExistTour = cart.findIndex(item => item.tourID == tourID);
+    const indexExistTour = cart.findIndex(item => item.tourID === tourID);
 
-    if(indexExistTour == -1){
-      cart.push({ 
-        tourID: tourID, 
-        quantity: quantity
-      });
+    if (indexExistTour === -1) {
+      cart.push({ tourID, quantity });
     } else {
-      cart[indexExistTour].quantity = cart[indexExistTour].quantity + quantity;
+      cart[indexExistTour].quantity += quantity;
     }
 
+    // Cập nhật localStorage
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    console.log("Thêm vào giỏ hàng:", { tourID, quantity });
-    alert("Đã thêm vào giỏ hàng!");
-
+    // Hiển thị thông báo với Swal
+    Swal.fire({
+      icon: "success",
+      title: "Thành công!",
+      text: "Sản phẩm đã được thêm vào giỏ hàng!",
+      showConfirmButton: false,
+      timer: 1500
+    });
   });
 }
 // End Carts
