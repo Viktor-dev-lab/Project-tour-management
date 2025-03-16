@@ -15,19 +15,19 @@ header.header
           li.nav-item
             a.nav-link(href="/") Home
           li.nav-item
-            a.nav-link(href="/destinations") Destinations
+            a.nav-link(href="/cart") Giỏ hàng (<span mini-cart> 0 </span>)
           li.nav-item
             a.nav-link(href="/tours") Tours
           li.nav-item
             a.nav-link(href="/categories") Travel Catalog
           
-          if(user)
-            li.nav-item
-                a.nav-link(href="/user/logout") Logout
-            li.nav-item
-                a.nav-link(href="/user/info") #{user.fullName}
-          else
-              li.nav-item
-                  a.nav-link(href="/user/register") Sign Up
-              li.nav-item
-                  a.nav-link(href="/user/login") Login
+          //- if(user)
+          //-   li.nav-item
+          //-       a.nav-link(href="/user/logout") Logout
+          //-   li.nav-item
+          //-       a.nav-link(href="/user/info") #{user.fullName}
+          //- else
+          //-     li.nav-item
+          //-         a.nav-link(href="/user/register") Sign Up
+          //-     li.nav-item
+          //-         a.nav-link(href="/user/login") Login

@@ -19,6 +19,18 @@ var swiper2 = new Swiper(".mySwiper2", {
 });
 // End Slider Tour Detail Page
 
+// Show count cart
+const showMiniCart = () => {
+  const miniCart = document.querySelector("[mini-cart]");
+  if (miniCart){
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const totalQuantity = cart.reduce((sum,item) => sum + item.quantity, 0);
+    miniCart.innerHTML = totalQuantity;
+  }
+}
+showMiniCart();
+// End Show count cart
+
 // Carts
 // Kiểm tra giỏ hàng trong localStorage
 let cart = localStorage.getItem("cart");
@@ -28,7 +40,6 @@ if (!cart) {
 } else {
   cart = JSON.parse(cart); // Chuyển về mảng để thao tác
 }
-
 // Lấy form giỏ hàng
 const formCart = document.getElementById('cartForm');
 if (formCart) {
@@ -68,6 +79,7 @@ if (formCart) {
       showConfirmButton: false,
       timer: 1500
     });
+    showMiniCart();
   });
 }
 // End Carts

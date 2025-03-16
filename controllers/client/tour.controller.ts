@@ -58,3 +58,25 @@ export const detail = async (req: Request, res: Response) => {
     pageTitle: "Danh Sách Tours",
   });
 };
+
+
+export const list = async (req: Request, res: Response) => {
+  const tours = await Tour.findAll({
+    where: { deleted: false },
+    order: [['createdAt', 'DESC']], // Sắp xếp giảm dần theo ngày tạo
+    raw: true
+  });
+  
+  tours.forEach(item => {
+    if (item['images']){
+      const images = JSON.parse(item["images"]);
+      item["images"] = images[0];
+    }
+    item["price_special"] = item["price"] * (1-item["discount"]/100);
+  });
+
+  res.render("client/pages/tours/list.pug", {
+    tours: tours,
+    pageTitle: "Danh Sách Tours",
+  });
+};
