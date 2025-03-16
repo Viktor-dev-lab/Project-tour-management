@@ -30,30 +30,45 @@ block main
         .col-md-6
           .tour-info.p-4.shadow-sm.rounded-3
             h2.text-primary.fw-bold.animated-text #{toursDetail.title}
-            p.tour-code.text-muted Mã tour: #{toursDetail.code}
+            p.tour-code.text-muted 
+              i.fas.fa-barcode.me-2 
+              | Mã tour: #{toursDetail.code}
 
             .price.mt-3
               if toursDetail.discount > 0
-                del.text-danger.fs-5 #{toursDetail.price.toLocaleString()} đ
+                del.text-danger.fs-5 
+                  i.fas.fa-money-bill-wave.me-2
+                  | #{toursDetail.price.toLocaleString()} đ
                 br
-                strong.text-success.fs-4 Giá khuyến mãi: #{toursDetail.price_special.toLocaleString()} đ
+                strong.text-success.fs-4 
+                  i.fas.fa-tags.me-2
+                  | Giá khuyến mãi: #{toursDetail.price_special.toLocaleString()} đ
               else
-                strong.text-primary.fs-4 Giá: #{toursDetail.price.toLocaleString()} đ
+                strong.text-primary.fs-4 
+                  i.fas.fa-dollar-sign.me-2
+                  | Giá: #{toursDetail.price.toLocaleString()} đ
 
             p.mt-3
-              strong Thông tin: 
+              strong 
+                i.fas.fa-info-circle.me-2
+                | Thông tin: 
               span.text-muted.ms-2 #{toursDetail.information}
 
             p.mt-3
-              strong Ngày khởi hành: 
+              strong 
+                i.fas.fa-calendar-alt.me-2
+                | Ngày khởi hành: 
               span.text-muted.ms-2 #{new Date(toursDetail.timeStart).toLocaleDateString("vi-VN")}
 
             p.mt-3
-              strong Số lượng còn: 
+              strong 
+                i.fas.fa-boxes.me-2
+                | Số lượng còn: 
               span.text-muted.ms-2 #{toursDetail.stock}
 
+
             //- FORM GIỎ HÀNG
-            form#cartForm.mt-4(action="/cart/add", method="POST")
+            form#cartForm.mt-4
               input(type="hidden", name="tour_id", value=toursDetail.id, min="1", max=toursDetail.stock)
 
               .d-flex.align-items-center.gap-3
