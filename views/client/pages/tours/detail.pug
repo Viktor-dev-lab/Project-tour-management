@@ -8,10 +8,24 @@ block main
         +box-head(pageTitle)
 
     if toursDetail
-      .row.g-5.align-items-center
+      .row
         .col-md-6
           .tour-image-wrapper
-            img.img-fluid.w-100.shadow-lg.rounded-3.animated-img(src=toursDetail.images[0], alt=toursDetail.title)
+            //- Swiper main container
+            div.swiper-container.mySwiper2
+              div.swiper-wrapper
+                each image in toursDetail.images
+                  div.swiper-slide
+                    img(src=image, alt=toursDetail.title)
+              div.swiper-button-next
+              div.swiper-button-prev
+
+            //- Swiper thumbnail container
+            div.swiper-container.mySwiper
+              div.swiper-wrapper
+                each image in toursDetail.images
+                  div.swiper-slide
+                    img(src=image, alt=toursDetail.title)
 
         .col-md-6
           .tour-info.p-4.shadow-sm.rounded-3
@@ -65,16 +79,7 @@ block main
                   h5 Ngày #{index + 1}
                   p.text-muted #{day}
 
-      //- Hình ảnh khác của Tour
-      .row.mt-5
-        .col-12
-          h3.text-center.text-uppercase.text-primary.mb-4 📸 Hình ảnh khác
-        .col-12.d-flex.flex-wrap.justify-content-center
-          each imgUrl in toursDetail.images.slice(1)
-            .col-md-3.col-sm-4.col-6.p-2
-              .image-thumbnail-wrapper
-                img.img-thumbnail.w-100.rounded-3.shadow-sm.animated-img(src=imgUrl, alt="Hình ảnh tour")
-
     else
       .text-center.text-danger
         h3 Tour không tồn tại!
+
