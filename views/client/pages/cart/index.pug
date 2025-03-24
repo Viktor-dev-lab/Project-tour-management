@@ -19,40 +19,12 @@ block main
               th Số lượng 
               th Tổng tiền 
               th Hành động 
-          tbody 
-            tr 
-              td 1
-              td 
-                img(src="https://backend.daca.vn/assets/tour/images/tour-ha-long.jpg", alt="Tour Ha Long", class="rounded shadow-sm", width="80px")
-              td 
-                a(href=`/tours/detail/:slugTour`, class="fw-bold text-decoration-none text-primary") Tour Hạ Long 
-              td 
-                span.price 1,200,000 
-                span.text-muted  đ
-              td 
-                input(
-                  type="number"
-                  name="quantity"
-                  class="form-control text-center"
-                  value="1"
-                  min="1"
-                  item-id=":tourId"
-                  style="max-width: 60px;"
-                )
-              td 
-                span.total-price 1,200,000 
-                span.text-muted  đ
-              td 
-                button(
-                  btn-delete=":tourId"
-                  class="btn btn-sm btn-danger d-flex align-items-center gap-1"
-                ) 
-                  i(class="bi bi-trash") 
-                  | Xóa 
+          tbody(list-tour)
+            
 
-      h4(class="text-end mt-3") 
+      h4(class="text-end mt-3 total-price-h4") 
         span Tổng đơn hàng: 
-        span#total-price.fw-bold.text-danger 0 
+        span.total-price.fw-bold.text-danger 0 
         span.text-muted  đ
 
   // Form đặt tour 
@@ -99,3 +71,6 @@ block main
             ) 
               i(class="bi bi-check-circle") 
               | Xác nhận đặt tour
+
+block script 
+  script(src = '/js/cart.js')
