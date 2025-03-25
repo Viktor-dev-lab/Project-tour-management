@@ -125,3 +125,39 @@ const updateIteminCart = () => {
 
 // Lấy data ra giao diện
 drawListTour();
+
+
+// Send cart to server
+const formOrder = document.querySelector("[form-order]");
+if (formOrder){
+  formOrder.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const fullName = event.target.elements.fullName.value;
+    const phone = event.target.elements.phone.value;
+    const note = event.target.elements.note.value;
+
+    const cart = JSON.parse(localStorage.getItem("cart"));
+
+    let data = {
+      info: {
+        fullName,
+        phone,
+        note
+      },
+      cart: cart
+    }
+
+    fetch("/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
+
+  });
+}
