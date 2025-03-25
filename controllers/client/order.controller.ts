@@ -4,6 +4,7 @@ import Tour from "../../models/tour.model";
 import Order from "../../models/order.model";
 import Category from '../../models/category.model';
 import { generateOrderCode } from '../../helpers/generate';
+import OrderItem from '../../models/order-item.model';
 
 
 // [GET] /order/
@@ -30,6 +31,28 @@ export const index =  async (req: Request, res: Response) => {
       }
     }
   );
+
+  for (const item of data.cart){
+    const dataItem = {
+      orderId: orderID,
+      tourId: item.tourID,
+      quantity: item.quantity
+    }
+    
+    const tour = await Tour.findOne({
+      where: {
+        id: item.tourID,
+        status: 'active',
+        deleted: false
+      }
+    });
+
+    dataItem["price"] = tour["price"];
+    dataItem["discount"] = tour["discount"];
+    dataItem["timeStart"] = tour["timeStart"];
+
+    await OrderItem.create(dataItem);
+  }
 
   res.status(200).json({
     code: 200,
