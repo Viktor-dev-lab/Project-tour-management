@@ -1,6 +1,8 @@
 import {Request, Response} from 'express';
 
 import Tour from '../../models/tour.model';
+import Category from '../../models/category.model';
+import { generateTourCode } from '../../helpers/generate';
 
 
 // [GET] /categorys/
@@ -22,10 +24,52 @@ export const index =  async (req: Request, res: Response) => {
     item["price_special"] = (item["price"] * (1-item["discount"] / 100));
   })
 
-  console.log(tours)
 
   res.render("admin/pages/tours/index.pug", {
     tours: tours,
     pageTitle: 'Danh Sách Tour'
   });
 }
+
+// [GET] /categorys/create
+export const create =  async (req: Request, res: Response) => {
+
+  const categories = await Category.findAll({
+    where: {
+      deleted: false,
+      status: 'active'
+    },
+    raw: true
+  })
+
+  res.render("admin/pages/tours/create.pug", {
+    pageTitle: 'Thêm mới Tour',
+    categories: categories
+  });
+}
+
+// [POST] /categorys/create
+export const createPost =  async (req: Request, res: Response) => {
+  const countTour = await Tour.count();
+  const code = generateTourCode(countTour + 1);
+  
+  if (req.body.position === ""){
+    req.body.position = countTour + 1;
+  } else {
+    req.body.position = parseInt(req.body.position);
+  }
+
+  const dataTour = {
+    title: req.body.title,
+    code: code,
+    price: parseInt(req.body.price),
+    discout: parseInt(req.body.discount),
+    stock: parseInt(req.body.stock),
+    timeStart: req.body.timeStart,
+    position: req.body.position,
+    status: req.body.status
+  }
+  console.log(dataTour);
+  res.send("OK");
+}
+

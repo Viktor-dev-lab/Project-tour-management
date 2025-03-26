@@ -1,0 +1,128 @@
+extends ../../layouts/default.pug
+
+block content
+  .container-fluid
+    h2.text-center.mb-4.text-primary 
+      i.bi.bi-plus-circle-fill.me-2 
+      | #{pageTitle}
+
+    .row.justify-content-center
+      .col-md-8.col-lg-12
+        .card.shadow-lg.rounded-4.border-0
+          .card-body.p-4
+
+            form(
+              action=`/${prefixAdmin}/tours/create`
+              method="POST"
+            )
+              .mb-3
+                label.form-label(for="title") 
+                  i.bi.bi-card-text.me-2
+                  | Tiêu đề
+                input.form-control(
+                  type="text"
+                  id="title"
+                  name="title"
+                  placeholder="Nhập tiêu đề tour"
+                  required
+                )
+
+              .mb-3
+                label.form-label(for="category") 
+                  i.bi.bi-tags.me-2
+                  | Danh mục
+                select.form-select(id="category" name="category_id" required)
+                  option(value="" disabled selected) -- Chọn danh mục --
+                  each item in categories
+                    option(value=item.id) #{item.title}
+                  
+
+              .row
+                .col-md-6.mb-3
+                  label.form-label(for="price") 
+                    i.bi.bi-cash-stack.me-2
+                    | Giá
+                  input.form-control(
+                    type="number"
+                    id="price"
+                    name="price"
+                    value="0"
+                    min="0"
+                  )
+
+                .col-md-6.mb-3
+                  label.form-label(for="discount") 
+                    i.bi.bi-percent.me-2
+                    | % Giảm giá
+                  input.form-control(
+                    type="number"
+                    id="discount"
+                    name="discount"
+                    value="0"
+                    min="0"
+                  )
+
+              .mb-3
+                label.form-label(for="stock") 
+                  i.bi.bi-boxes.me-2
+                  | Số lượng
+                input.form-control(
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  value="0"
+                  min="0"
+                )
+
+              .mb-3
+                label.form-label(for="timeStart") 
+                  i.bi.bi-calendar-event.me-2
+                  | Lịch khởi hành
+                input.form-control(
+                  type="datetime-local"
+                  id="timeStart"
+                  name="timeStart"
+                )
+
+              .mb-3
+                label.form-label(for="position") 
+                  i.bi.bi-list-ol.me-2
+                  | Vị trí
+                input.form-control(
+                  type="number"
+                  id="position"
+                  name="position"
+                  placeholder="Tự động tăng"
+                  min="1"
+                )
+
+              .mb-3.d-flex
+                label.form-label.me-4
+                  i.bi.bi-toggle-on
+                  | Trạng thái:
+
+                .form-check.form-check-inline
+                  input.form-check-input(
+                    type="radio"
+                    id="statusActive"
+                    name="status"
+                    value="active"
+                    checked
+                  )
+                  label.form-check-label(for="statusActive") Hoạt động
+
+                .form-check.form-check-inline
+                  input.form-check-input(
+                    type="radio"
+                    id="statusInactive"
+                    name="status"
+                    value="inactive"
+                  )
+                  label.form-check-label(for="statusInactive") Dừng hoạt động
+
+              .text-center.mt-4
+                button.btn.btn-primary.w-100.p-3.rounded-pill.shadow-lg(
+                  type="submit"
+                ) 
+                  i.bi.bi-check-circle.me-2
+                  | Tạo mới
