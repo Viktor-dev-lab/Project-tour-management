@@ -1,0 +1,111 @@
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.sidebar .nav-link {
+  padding: 10px 15px;
+  font-size: 1rem;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  border-radius: 5px;
+}
+
+.sidebar .nav-link i {
+  transition: transform 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.sidebar .nav-link:hover i {
+  transform: rotate(5deg);
+}
+
+.sidebar .nav-link.text-danger:hover {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.sidebar .nav-link.active {
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+/* End Sidebar */
+
+/* Navbar */
+.navbar {
+  background: #ffffff;
+  border-bottom: 2px solid #e3e3e3;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-link i {
+  font-size: 1.4rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 3px 7px;
+}
+
+.dropdown-menu {
+  min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 123, 255, 0.1);
+}
+
+.rounded-circle.border {
+  border: 2px solid #007bff;
+  transition: transform 0.3s ease;
+}
+
+.rounded-circle.border:hover {
+  transform: scale(1.1);
+}
+/* End Navbar */
+
+/* Categories */
+.input-group {
+  max-width: 300px;
+}
+
+.dropdown-menu {
+  min-width: 150px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-radius: 8px;
+}
+
+.badge {
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+/* End Categories */

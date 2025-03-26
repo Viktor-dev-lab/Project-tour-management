@@ -1,0 +1,21 @@
+doctype html
+html(lang="vi")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Admin Dashboard
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css")
+    link(rel="stylesheet" href="/admin/css/style.css")
+  
+  body
+    .wrapper.d-flex
+      include ../mixins/sidebar.pug
+
+      .main-content.w-100
+        include ../mixins/navbar.pug
+
+        .container-fluid.p-4
+          block content
+
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")
+    script(src="/admin/js/script.js") 

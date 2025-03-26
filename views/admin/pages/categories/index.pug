@@ -1,0 +1,42 @@
+extends ../../layouts/default.pug
+
+block content
+  .container-fluid
+    h2.text-center.mb-4 Quản lý danh mục tour
+
+    // Thanh chức năng (Căn đều các mục)
+    .d-flex.justify-content-between.align-items-center.mb-4.gap-3
+      // Ô tìm kiếm
+      .input-group.w-25
+        input.form-control(type="text" placeholder="Tìm kiếm danh mục...")
+        button.btn.btn-outline-secondary(type="button")
+          i.bi.bi-search
+
+      // Dropdown lọc trạng thái
+      .dropdown
+        button.btn.btn-outline-primary.dropdown-toggle(type="button" data-bs-toggle="dropdown")
+          | Lọc trạng thái
+        ul.dropdown-menu
+          li: a.dropdown-item(href="?status=all") Tất cả
+          li: a.dropdown-item(href="?status=active") Hoạt động
+          li: a.dropdown-item(href="?status=inactive") Không hoạt động
+
+      // Nút Thêm mới
+      a.btn.btn-success.d-flex.align-items-center(href="/admin/categories/create")
+        i.bi.bi-plus-lg.me-1
+        | Thêm danh mục
+
+    // Danh sách danh mục
+    .row
+      each category in categories
+        .col-md-4.mb-4
+          .card.shadow-sm.d-flex.flex-column.h-100
+            img.card-img-top(src=category.image, alt=category.title)
+            .card-body.d-flex.flex-column
+              h5.card-title= category.title
+              p.card-text= category.description
+              .mt-auto.d-flex.justify-content-between.align-items-center
+                span.badge(class=category.status === 'active' ? 'bg-success' : 'bg-secondary')= category.status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+                .btn-group
+                  a.btn.btn-primary.btn-sm(href=`/admin/categories/edit/${category.id}`) Chỉnh sửa
+                  a.btn.btn-danger.btn-sm(href=`/admin/categories/delete/${category.id}`) Xóa

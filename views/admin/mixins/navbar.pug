@@ -1,0 +1,25 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow-sm.p-3
+  .container-fluid
+    span.navbar-brand.font-weight-bold.text-primary Admin Dashboard
+
+    .d-flex.align-items-center.gap-3
+      //- Nút Thông báo
+      a.nav-link.position-relative.text-dark(href="#")
+        i.bi.bi-bell-fill.text-warning.fs-4
+        span.badge.bg-danger.rounded-pill.position-absolute.top-0.start-100.translate-middle 3
+        | Thông báo
+
+      //- Admin Profile
+      .dropdown
+        a.nav-link.text-dark.d-flex.align-items-center.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown")
+          img(src="/images/admin-avatar.png" alt="Admin" width="40" height="40").rounded-circle.border
+          span.ms-2 Admin Name
+        ul.dropdown-menu.dropdown-menu-end
+          li
+            a.dropdown-item(href="/admin/profile") Hồ sơ cá nhân
+          li
+            a.dropdown-item(href="/admin/settings") Cài đặt
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item.text-danger(href="/logout") Đăng xuất

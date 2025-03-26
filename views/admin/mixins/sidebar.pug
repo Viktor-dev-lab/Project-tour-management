@@ -1,0 +1,23 @@
+aside.sidebar.bg-dark.text-white.d-flex.flex-column.p-3
+  h4.text-center.mb-4 Admin Panel
+  ul.nav.flex-column
+    li.nav-item
+      a.nav-link.text-white(href="/admin/dashboard")
+        i.bi.bi-speedometer2.mr-2
+        | Dashboard
+    li.nav-item
+      a.nav-link.text-white(href="/admin/users")
+        i.bi.bi-people.mr-2
+        | Quản lý người dùng
+    li.nav-item
+      a.nav-link.text-white(href="/admin/orders")
+        i.bi.bi-cart.mr-2
+        | Đơn hàng
+    li.nav-item
+      a.nav-link.text-white(href="/admin/tours")
+        i.bi.bi-globe.mr-2
+        | Quản lý tour
+    li.nav-item.mt-auto
+      a.nav-link.text-danger.font-weight-bold(href="/logout")
+        i.bi.bi-box-arrow-right.mr-2
+        | Đăng xuất
