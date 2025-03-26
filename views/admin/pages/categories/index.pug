@@ -2,12 +2,12 @@ extends ../../layouts/default.pug
 
 block content
   .container-fluid
-    h2.text-center.mb-4 Quản lý danh mục tour
+    h2.text-center.mb-4 #{pageTitle}
 
     // Thanh chức năng (Căn đều các mục)
-    .d-flex.justify-content-between.align-items-center.mb-4.gap-3
+    .d-flex.align-items-center.mb-4.gap-3
       // Ô tìm kiếm
-      .input-group.w-25
+      .input-group.w-50
         input.form-control(type="text" placeholder="Tìm kiếm danh mục...")
         button.btn.btn-outline-secondary(type="button")
           i.bi.bi-search
@@ -26,17 +26,28 @@ block content
         i.bi.bi-plus-lg.me-1
         | Thêm danh mục
 
-    // Danh sách danh mục
-    .row
-      each category in categories
-        .col-md-4.mb-4
-          .card.shadow-sm.d-flex.flex-column.h-100
-            img.card-img-top(src=category.image, alt=category.title)
-            .card-body.d-flex.flex-column
-              h5.card-title= category.title
-              p.card-text= category.description
-              .mt-auto.d-flex.justify-content-between.align-items-center
+    // Bảng danh sách danh mục
+    .table-responsive
+      table.table.table-bordered.table-hover.align-middle
+        thead.table-dark
+          tr.text-center
+            th STT
+            th Hình ảnh
+            th Tên danh mục
+            th Mô tả
+            th Trạng thái
+            th Hành động
+        tbody
+          each category, index in categories
+            tr.text-center
+              td #{index + 1}
+              td 
+                img(src=category.image, alt=category.title, width="80", height="50").rounded
+              td #{category.title}
+              td.text-muted #{category.description}
+              td
                 span.badge(class=category.status === 'active' ? 'bg-success' : 'bg-secondary')= category.status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+              td
                 .btn-group
                   a.btn.btn-primary.btn-sm(href=`/admin/categories/edit/${category.id}`) Chỉnh sửa
                   a.btn.btn-danger.btn-sm(href=`/admin/categories/delete/${category.id}`) Xóa

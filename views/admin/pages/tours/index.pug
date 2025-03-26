@@ -1,0 +1,60 @@
+extends ../../layouts/default.pug
+
+block content
+  .container-fluid
+    h2.text-center.mb-4 #{pageTitle}
+
+    // Thanh chức năng (Tìm kiếm, Lọc, Thêm mới)
+    .d-flex.align-items-center.mb-4.gap-3
+      // Ô tìm kiếm
+      .input-group.w-25
+        input.form-control(type="text" placeholder="Tìm kiếm tour...")
+        button.btn.btn-outline-secondary(type="button")
+          i.bi.bi-search
+
+      // Dropdown lọc trạng thái
+      .dropdown
+        button.btn.btn-outline-primary.dropdown-toggle(type="button" data-bs-toggle="dropdown")
+          | Lọc trạng thái
+        ul.dropdown-menu
+          li: a.dropdown-item(href="?status=all") Tất cả
+          li: a.dropdown-item(href="?status=active") Hoạt động
+          li: a.dropdown-item(href="?status=inactive") Không hoạt động
+
+      // Nút Thêm mới
+      a.btn.btn-success.d-flex.align-items-center(href="/admin/tours/create")
+        i.bi.bi-plus-lg.me-1
+        | Thêm Tour
+
+    // Bảng danh sách tour
+    .table-responsive
+      table.table.table-bordered.table-hover.align-middle
+        thead.table-dark
+          tr.text-center
+            th STT
+            th Hình ảnh
+            th Tiêu đề
+            th Giá gốc
+            th Giảm giá (%)
+            th Giá đặc biệt
+            th Trạng thái
+            th Vị trí
+            th Hành động
+        tbody
+          each tour, index in tours
+            tr.text-center
+              td #{index + 1}
+              td 
+                img(src=tour.image, alt=tour.title, width="80", height="50").rounded
+              td #{tour.title}
+              td.text-muted 
+                del #{tour.price.toLocaleString()}₫
+              td.text-warning #{tour.discount}%
+              td.text-danger #{tour.price_special.toLocaleString()}₫
+              td
+                span.badge(class=tour.status === 'active' ? 'bg-success' : 'bg-secondary')= tour.status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+              td #{tour.position}
+              td
+                .btn-group
+                  a.btn.btn-primary.btn-sm(href=`/admin/tours/edit/${tour.id}`) Chỉnh sửa
+                  a.btn.btn-danger.btn-sm(href=`/admin/tours/delete/${tour.id}`) Xóa
