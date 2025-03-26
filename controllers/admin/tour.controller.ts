@@ -3,9 +3,12 @@ import {Request, Response} from 'express';
 import Tour from '../../models/tour.model';
 import Category from '../../models/category.model';
 import { generateTourCode } from '../../helpers/generate';
+import slugify from 'slugify';
+import { systemConfig } from '../../config/system';
+import TourCategory from '../../models/tour-category.model';
 
 
-// [GET] /categorys/
+// [GET] /tours/
 export const index =  async (req: Request, res: Response) => {
   // SELECT * FROM tours WHERE deleted = false;
 
@@ -31,7 +34,7 @@ export const index =  async (req: Request, res: Response) => {
   });
 }
 
-// [GET] /categorys/create
+// [GET] /tours/create
 export const create =  async (req: Request, res: Response) => {
 
   const categories = await Category.findAll({
@@ -48,7 +51,7 @@ export const create =  async (req: Request, res: Response) => {
   });
 }
 
-// [POST] /categorys/create
+// [POST] /tour/create
 export const createPost =  async (req: Request, res: Response) => {
   const countTour = await Tour.count();
   const code = generateTourCode(countTour + 1);
@@ -63,13 +66,25 @@ export const createPost =  async (req: Request, res: Response) => {
     title: req.body.title,
     code: code,
     price: parseInt(req.body.price),
-    discout: parseInt(req.body.discount),
+    discount: parseInt(req.body.discount),
     stock: parseInt(req.body.stock),
     timeStart: req.body.timeStart,
     position: req.body.position,
-    status: req.body.status
+    status: req.body.status,
+    slug: slugify(`${req.body.title}-${Date.now()}`, { lower: true, strict: true,  locale: 'vi' })
   }
-  console.log(dataTour);
-  res.send("OK");
+
+    
+  const tour = await Tour.create(dataTour);
+  const tourID = tour["id"];
+
+  const dataTourCategory = {
+    tour_id: tourID,
+    category_id: parseInt(req.body.category_id)
+  }
+
+  await TourCategory.create(dataTourCategory)
+
+  res.redirect(`/${systemConfig.prefixAdmin}/tours`);
 }
 
