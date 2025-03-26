@@ -2,12 +2,11 @@ import {Request, Response} from 'express';
 
 import Tour from "../../models/tour.model";
 import Order from "../../models/order.model";
-import Category from '../../models/category.model';
 import { generateOrderCode } from '../../helpers/generate';
 import OrderItem from '../../models/order-item.model';
 
 
-// [GET] /order/
+// [POST] /order
 export const index =  async (req: Request, res: Response) => {
   const data = req.body;
 
@@ -56,6 +55,52 @@ export const index =  async (req: Request, res: Response) => {
 
   res.status(200).json({
     code: 200,
-    mesage: "Đặt hàng thành công"
+    mesage: "Đặt hàng thành công",
+    orderCode: newCode
   })
+}
+
+
+
+// [GET] /order/success
+export const success =  async (req: Request, res: Response) => {
+  const orderCode = req.query.orderCode as string;
+
+  const order = await Order.findOne({
+    where: {
+      code: orderCode,
+      deleted: false
+    },
+    raw: true
+  })
+
+  const order_item = await OrderItem.findAll({
+    where: {
+      orderId: order["id"],
+    },  
+    include: [
+      {
+        model: Tour, // Nếu cần lấy thêm thông tin từ bảng Tour
+        as: "tour", // THÊM alias đúng với alias trong quan hệ
+        attributes: ["title", "price", "images", "slug"]
+      }
+    ],
+    raw: true,
+    nest : true
+  })
+  
+  for (const item of order_item) {
+    item["price_special"] = item["price"] * (1 - item["discount"] / 100);
+    item["total"] = item["price_special"] * item["quantity"];
+    item["tour"].image = JSON.parse(item["tour"].images)?.[0] || null;
+
+  }
+  
+  console.log(order)
+
+  res.render('client/pages/order-item/index.pug', {
+    pageTitle: "Đặt hàng thành công",
+    order_item: order_item,
+    order: order
+  });
 }

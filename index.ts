@@ -1,6 +1,7 @@
 import express, {Express} from 'express';
 import dotenv from "dotenv";
 import clientRoutes from './routes/client/index.route';
+import setupAssociations from "./models/association";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(express.urlencoded({ extended: true })); // Hỗ trợ form data
 app.set("view engine", "pug");
 app.set("views", "./views");
 
+// Thiết lập quan hệ giữa các model
+setupAssociations();
 // Client Route
 clientRoutes(app);
 

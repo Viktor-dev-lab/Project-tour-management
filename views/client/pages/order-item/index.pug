@@ -1,0 +1,65 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-5
+    .row
+      .col-12
+        +box-head(pageTitle)
+
+    // Thông tin đặt hàng
+    .row.mb-4
+      .col-md-8
+        .card.shadow-sm.p-4
+          h4.text-primary.mb-3 📝 Thông tin đặt hàng
+          ul.list-group.list-group-flush
+            li.list-group-item Mã đơn hàng: 
+              strong.text-dark #{order.code}
+            li.list-group-item Họ tên: 
+              strong.text-dark #{order.fullName}
+            li.list-group-item Số điện thoại: 
+              strong.text-dark #{order.phone}
+            li.list-group-item Ghi chú: 
+              strong.text-dark #{order.note || 'Không có'}
+            li.list-group-item Trạng thái: 
+              span.badge.badge-warning #{order.status}
+            li.list-group-item Ngày đặt: 
+              strong.text-dark #{new Date(order.createdAt).toLocaleDateString()}
+
+      .col-md-4
+        .card.bg-light.p-4
+          h5.text-success Tổng tiền đơn hàng
+          h3.text-danger.font-weight-bold #{order_item.reduce((sum, item) => sum + item.total, 0).toLocaleString()} VND
+
+    // Danh sách tour đặt
+    .row
+      .col-12
+        .card.shadow-sm
+          .card-body
+            h4.text-primary.mb-3 🛫 Danh sách tour đã đặt
+            table.table.table-bordered.table-hover
+              thead.table-dark
+                tr
+                  th Ảnh
+                  th Tên tour
+                  th Giá gốc
+                  th Giá KM
+                  th Số lượng
+                  th Tổng tiền
+              tbody
+                each item in order_item
+                  tr
+                    td 
+                      img(src=item.tour.image, alt=item.tour.title, width="80", height="80").rounded.shadow-sm
+                    td #{item.tour.title}
+                    td.text-decoration-line-through.text-muted #{item.price.toLocaleString()} VND
+                    td.text-danger.font-weight-bold #{item.price_special.toLocaleString()} VND
+                    td #{item.quantity}
+                    td.text-success.font-weight-bold #{item.total.toLocaleString()} VND
+
+    // Tổng tiền cuối trang
+    .row.mt-4
+      .col-12.text-end
+        .alert.alert-success.p-3
+          h4 Tổng tiền thanh toán:
+          h2.text-danger.font-weight-bold #{order_item.reduce((sum, item) => sum + item.total, 0).toLocaleString()} VND
