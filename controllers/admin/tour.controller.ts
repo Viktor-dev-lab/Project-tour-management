@@ -72,7 +72,9 @@ export const createPost =  async (req: Request, res: Response) => {
     timeStart: req.body.timeStart,
     position: req.body.position,
     status: req.body.status,
-    slug: slugify(`${req.body.title}-${Date.now()}`, { lower: true, strict: true,  locale: 'vi' })
+    slug: slugify(`${req.body.title}-${Date.now()}`, { lower: true, strict: true,  locale: 'vi' }),
+    information: req.body.information,
+    schedule: req.body.schedule
   }
 
     

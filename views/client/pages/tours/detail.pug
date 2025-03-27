@@ -8,9 +8,9 @@ block main
         +box-head(pageTitle)
 
     if toursDetail
-      .row
-        .col-md-6
-          .tour-image-wrapper
+      .row.d-flex.align-items-stretch
+        .col-md-6.d-flex
+          .tour-image-wrapper.w-100
             //- Swiper main container
             div.swiper-container.mySwiper2
               div.swiper-wrapper
@@ -27,8 +27,8 @@ block main
                   div.swiper-slide
                     img(src=image, alt=toursDetail.title)
 
-        .col-md-6
-          .tour-info.p-4.shadow-sm.rounded-3
+        .col-md-6.d-flex
+          .tour-info.p-4.shadow-sm.rounded-3.w-100.d-flex.flex-column.justify-content-between
             h2.text-primary.fw-bold.animated-text #{toursDetail.title}
             p.tour-code.text-muted 
               i.fas.fa-barcode.me-2 
@@ -50,12 +50,6 @@ block main
 
             p.mt-3
               strong 
-                i.fas.fa-info-circle.me-2
-                | Thông tin: 
-              span.text-muted.ms-2 #{toursDetail.information}
-
-            p.mt-3
-              strong 
                 i.fas.fa-calendar-alt.me-2
                 | Ngày khởi hành: 
               span.text-muted.ms-2 #{new Date(toursDetail.timeStart).toLocaleDateString("vi-VN")}
@@ -65,7 +59,6 @@ block main
                 i.fas.fa-boxes.me-2
                 | Số lượng còn: 
               span.text-muted.ms-2 #{toursDetail.stock}
-
 
             //- FORM GIỎ HÀNG
             form#cartForm.mt-4
@@ -78,6 +71,19 @@ block main
               .mt-4
                 button.btn.btn-success.shadow-sm.btn-lg.animated-btn(type="submit") 🛒 Thêm vào giỏ
                 a.btn.btn-primary.shadow-sm.btn-lg.animated-btn.ms-3(href="/booking/#{toursDetail.slug}") 🚀 Đặt ngay
+
+      //- Thông tin tour
+      .row.mt-5
+        .col-12
+          h3.text-center.text-uppercase.text-primary.mb-4 ⏳ Thông tin Chi Tiết
+
+        .col-12
+          .timeline
+            p.mt-3
+              strong 
+                i.fas.fa-info-circle.me-2
+                | Thông tin: 
+              span.text-muted.ms-2 !{toursDetail.information}  
 
       //- Lịch trình Tour - Hiển thị theo dạng Timeline chuyên nghiệp
       .row.mt-5
@@ -92,9 +98,8 @@ block main
                   i.fas.fa-calendar-day
                 .timeline-content
                   h5 Ngày #{index + 1}
-                  p.text-muted #{day}
+                  p.text-muted !{day}
 
     else
       .text-center.text-danger
         h3 Tour không tồn tại!
-
