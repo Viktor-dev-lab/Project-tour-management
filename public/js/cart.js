@@ -9,6 +9,7 @@ const drawListTour = () => {
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       const listTour = document.querySelector("[list-tour]");
       if (!listTour) {
         console.error("Không tìm thấy phần tử [list-tour]");
@@ -158,7 +159,7 @@ if (formOrder){
       .then(data => {
         if (data.code == 200){
           localStorage.removeItem("cart");
-          window.location.href = `/order/success?orderCode=${data.orderCode}`;
+          window.location.href = `/orders/success?orderCode=${data.orderCode}`;
         } else {
           alert("Đặt hàng không thành công !");
         }

@@ -1,12 +1,13 @@
 // Slider Tour Detail Page
-var swiper = new Swiper(".mySwiper", {
+const tourThumbs = new Swiper(".mySwiper", {
   loop: true,
   spaceBetween: 10,
   slidesPerView: 4,
   freeMode: true,
   watchSlidesProgress: true,
 });
-var swiper2 = new Swiper(".mySwiper2", {
+
+const tourSlider = new Swiper(".mySwiper2", {
   loop: true,
   spaceBetween: 10,
   navigation: {
@@ -14,10 +15,45 @@ var swiper2 = new Swiper(".mySwiper2", {
     prevEl: ".swiper-button-prev",
   },
   thumbs: {
-    swiper: swiper,
+    swiper: tourThumbs,
   },
 });
 // End Slider Tour Detail Page
+
+// Start Slider Dashboard
+const dashboardSlider = new Swiper(".mySwiperDashboard", {
+  effect: "coverflow",
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: "auto",
+  coverflowEffect: {
+    rotate: 50,
+    stretch: 0,
+    depth: 100,
+    modifier: 1,
+    slideShadows: true,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+  },
+});
+
+const dashboardInfoSlider = new Swiper(".mySwiperDashboardInfo", {
+  speed: 600,
+  parallax: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
+// End Slider Dashboard
+
+
+
 
 // Show count cart
 const showMiniCart = () => {

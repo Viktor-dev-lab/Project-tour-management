@@ -1,0 +1,87 @@
+/* Tour Page */
+.tour-container {
+  padding: 20px;
+}
+
+.tour-card {
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.tour-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tour-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.tour-card-img {
+  transition: transform 0.3s ease-in-out;
+  height: 200px;
+  object-fit: cover;
+}
+
+.tour-card:hover .tour-card-img {
+  transform: scale(1.05);
+}
+
+/* Badge giảm giá */
+.discount-badge {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Nội dung trong card */
+.tour-info {
+  padding: 15px;
+  flex-grow: 1;
+}
+
+.tour-meta {
+  font-size: 14px;
+}
+
+.tour-meta i {
+  font-size: 16px;
+}
+
+.tour-price del {
+  font-size: 14px;
+}
+
+.tour-stock {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tour-actions a {
+  font-weight: bold;
+}
+
+.tour-actions .btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.tour-actions .btn-outline-primary:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+.tour-actions .btn-success {
+  background: #28a745;
+  color: #fff;
+}
+
+.tour-actions .btn-success:hover {
+  background: #218838;
+}
+
+/* End Tour Page */

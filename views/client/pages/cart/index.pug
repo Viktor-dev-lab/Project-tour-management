@@ -7,59 +7,75 @@ block main
       .col-12
         +box-head(pageTitle)
 
-    // Thông tin đặt hàng
-    .row.mb-4
-      .col-md-8
-        .card.shadow-lg.border-0.p-4(style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 12px;")
-          h4.text-primary.mb-3 📝 Thông tin đặt hàng
-          ul.list-group.list-group-flush
-            li.list-group-item.bg-transparent.border-0.font-weight-bold Mã đơn hàng: 
-              span.text-dark #{order.code}
-            li.list-group-item.bg-transparent.border-0.font-weight-bold Họ tên: 
-              span.text-dark #{order.fullName}
-            li.list-group-item.bg-transparent.border-0.font-weight-bold Số điện thoại: 
-              span.text-dark #{order.phone}
-            li.list-group-item.bg-transparent.border-0.font-weight-bold Ghi chú: 
-              span.text-dark #{order.note || 'Không có'}
-            li.list-group-item.bg-transparent.border-0.font-weight-bold Trạng thái: 
-              span.badge.badge-warning.p-2 #{order.status}
-            li.list-group-item.bg-transparent.border-0.font-weight-bold Ngày đặt: 
-              span.text-dark #{new Date(order.createdAt).toLocaleDateString()}
-
-      .col-md-4
-        .card.bg-gradient.text-white.p-4(style="background: linear-gradient(135deg, #28a745, #218838); border-radius: 12px;")
-          h5.text-white.font-weight-bold.text-center Tổng tiền đơn hàng
-          h3.text-warning.text-center.font-weight-bold #{order_item.reduce((sum, item) => sum + item.total, 0).toLocaleString()} VND
-
     // Danh sách tour đặt
     .row
       .col-12
         .card.shadow-sm.border-0
           .card-body
             h4.text-primary.mb-3 🛫 Danh sách tour đã đặt
-            table.table.table-striped.table-hover.text-center.shadow-sm
-              thead.table-dark.text-white
-                tr
-                  th Ảnh
-                  th Tên tour
-                  th Giá gốc
-                  th Giá KM
-                  th Số lượng
-                  th Tổng tiền
-              tbody
-                each item in order_item
+            .table-responsive
+              table.table.table-striped.table-hover.text-center.shadow-sm
+                thead.table-dark.text-white
                   tr
-                    td 
-                      img(src=item.tour.image, alt=item.tour.title, width="70", height="70").rounded-circle.shadow-sm
-                    td.text-left.font-weight-bold #{item.tour.title}
-                    td.text-decoration-line-through.text-muted.font-italic #{item.price.toLocaleString()} VND
-                    td.text-danger.font-weight-bold #{item.price_special.toLocaleString()} VND
-                    td.text-dark #{item.quantity}
-                    td.text-success.font-weight-bold #{item.total.toLocaleString()} VND
+                    th Ảnh
+                    th Tên tour
+                    th Giá gốc
+                    th Giá KM
+                    th Số lượng
+                    th Tổng tiền
+                    th Hành Động
+                tbody(list-tour)
 
-    // Tổng tiền cuối trang
+    // Hiển thị tổng tiền
     .row.mt-4
-      .col-12.text-center
-        .alert.alert-success.p-4.rounded-lg.shadow-lg
-          h4.font-weight-bold Tổng tiền thanh toán:
-          h2.text-danger.font-weight-bold #{order_item.reduce((sum, item) => sum + item.total, 0).toLocaleString()} VND
+      .col-12.text-end
+        h4.total-price-h4 Tổng tiền: 
+          span.total-price 0 đ
+
+  // Form đặt tour 
+  .row.justify-content-center.mt-5
+    .col-md-8
+      .card.shadow-lg.p-4.rounded-3.h-100
+        .card-body.d-flex.flex-column
+          +box-head("Thông tin khách hàng")
+          form(form-order).flex-grow-1
+            .row.mb-3
+              .col-md-6
+                label.fw-bold(for="fullName") Họ tên
+                input(
+                  type="text"
+                  class="form-control"
+                  id="fullName"
+                  name="fullName"
+                  placeholder="Nhập họ tên"
+                  required
+                )
+              .col-md-6
+                label.fw-bold(for="phone") Số điện thoại
+                input(
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  name="phone"
+                  placeholder="Nhập số điện thoại"
+                  required
+                )
+            .mb-3
+              label.fw-bold(for="note") Ghi chú
+              textarea(
+                class="form-control"
+                id="note"
+                name="note"
+                rows="3"
+                placeholder="Nhập ghi chú (nếu có)"
+              )
+
+            button(
+              type="submit"
+              class="btn btn-lg btn-success w-100 mt-3"
+            ) 
+              i(class="bi bi-check-circle") 
+              | Xác nhận đặt tour
+
+block script
+  script(src="/js/cart.js")

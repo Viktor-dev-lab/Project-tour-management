@@ -1,0 +1,54 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block css
+  link(rel="stylesheet", href="/css/dashboard.css")
+
+block main
+  .container-fluid.p-0
+    // Hero Section
+    .hero-section(style=`background-image: url('${category[3].image}');`)
+      .hero-overlay
+        .container.text-center
+          h1.travel-title Khám phá thế giới cùng chúng tôi!
+          p.travel-subtitle Chọn hành trình lý tưởng và tận hưởng chuyến đi hoàn hảo.
+          a.btn.btn-primary(href="/tours") Đặt ngay
+
+  .container.tour-container.my-4
+    .row
+      .col-12
+        +box-head(pageTitle)
+
+    .row
+      .col-12
+        div(class="swiper mySwiperDashboard")
+          div(class="swiper-wrapper")
+            each item in category
+              div(class="swiper-slide")
+                img(src=`${item.image}`, alt=`${item.title}`)
+                div.category-info
+                    h3=item.title
+        div(class="swiper-pagination")
+
+    .row
+      .col-12
+        div(style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff", class="swiper mySwiperDashboardInfo")
+          div(class="parallax-bg", style=`background-image: url('${category[9].image}');`, data-swiper-parallax="-23%")
+          div(class="swiper-wrapper")
+            div(class="swiper-slide")
+              div(class="title" data-swiper-parallax="-300") Slide 1
+              div(class="subtitle" data-swiper-parallax="-200") Subtitle
+              div(class="text" data-swiper-parallax="-100")
+                p 
+                  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                  | dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+                  | laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+
+            div(class="swiper-slide")
+              div(class="title" data-swiper-parallax="-300") Slide 2
+              div(class="subtitle" data-swiper-parallax="-200") Subtitle
+              div(class="text" data-swiper-parallax="-100")
+                p 
+                  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                  | dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+                  | laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
