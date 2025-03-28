@@ -14,41 +14,55 @@ block main
           p.travel-subtitle Chọn hành trình lý tưởng và tận hưởng chuyến đi hoàn hảo.
           a.btn.btn-primary(href="/tours") Đặt ngay
 
-  .container.tour-container.my-4
+  .container.category-container.my-4
     .row
       .col-12
-        +box-head(pageTitle)
-
+        h2 #{category.header}
+        p #{category.description}
     .row
       .col-12
         div(class="swiper mySwiperDashboard")
           div(class="swiper-wrapper")
             each item in category
               div(class="swiper-slide")
-                img(src=`${item.image}`, alt=`${item.title}`)
-                div.category-info
-                    h3=item.title
-        div(class="swiper-pagination")
+                a(href=`${item.link}`, target="_blank", style="text-decoration: none; color: inherit;")
+                  img(src=`${item.image}`, alt=`${item.title}`)
+                  div.category-info
+                      h3=item.title
 
+  .container.img-container.my-4
     .row
       .col-12
         div(style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff", class="swiper mySwiperDashboardInfo")
           div(class="parallax-bg", style=`background-image: url('${category[9].image}');`, data-swiper-parallax="-23%")
           div(class="swiper-wrapper")
-            div(class="swiper-slide")
-              div(class="title" data-swiper-parallax="-300") Slide 1
-              div(class="subtitle" data-swiper-parallax="-200") Subtitle
-              div(class="text" data-swiper-parallax="-100")
-                p 
-                  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                  | dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
-                  | laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+            each item in dataPoster
+              div(class="swiper-slide")
+                  div(class="title" data-swiper-parallax="-300") #{item.title}
+                  div(class="text" data-swiper-parallax="-100")
+                    p #{item.description}
 
-            div(class="swiper-slide")
-              div(class="title" data-swiper-parallax="-300") Slide 2
-              div(class="subtitle" data-swiper-parallax="-200") Subtitle
-              div(class="text" data-swiper-parallax="-100")
-                p 
-                  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                  | dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
-                  | laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+          div(class="swiper-button-next")
+          div(class="swiper-button-prev")
+          div(class="swiper-pagination")
+
+
+  .container.tour-container.my-4
+    .row
+      .col-12
+        h2 #{category.header}
+        p #{category.description}
+
+    .row
+      .col-12 
+          div(class="swiper mySwiperTourInfo")
+            div(class="swiper-wrapper")  
+              each item in slidesData
+                div(class="swiper-slide") 
+                  a(href=`${item.link}`, target="_blank", style="text-decoration: none; color: inherit;")
+                    img(src=`${item.image}`)
+                    h3 #{item.title}
+
+            div(class="swiper-pagination")
+            div(class="swiper-button-next") 
+            div(class="swiper-button-prev")

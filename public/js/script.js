@@ -36,6 +36,10 @@ const dashboardSlider = new Swiper(".mySwiperDashboard", {
   pagination: {
     el: ".swiper-pagination",
   },
+  autoplay: {
+    delay: 3000, // Thời gian giữa các lần lướt (3 giây)
+    disableOnInteraction: false, // Tiếp tục lướt ngay cả khi người dùng tương tác
+  },
 });
 
 const dashboardInfoSlider = new Swiper(".mySwiperDashboardInfo", {
@@ -48,6 +52,24 @@ const dashboardInfoSlider = new Swiper(".mySwiperDashboardInfo", {
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
+  },
+});
+
+
+var swiper = new Swiper(".mySwiperTourInfo", {
+  slidesPerView: 3,
+  spaceBetween: 30,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  autoplay: {
+    delay: 3000, // Thời gian giữa các lần lướt (3 giây)
+    disableOnInteraction: false, // Tiếp tục lướt ngay cả khi người dùng tương tác
   },
 });
 // End Slider Dashboard
