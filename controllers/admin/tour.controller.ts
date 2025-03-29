@@ -91,3 +91,46 @@ export const createPost =  async (req: Request, res: Response) => {
   res.redirect(`/${systemConfig.prefixAdmin}/tours`);
 }
 
+// [PATCH] /admin/tours/change-status/:id
+export const changeStatus = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const tourID = req.params.id;
+    const tour = await Tour.findByPk(tourID);
+
+    if (tour) {
+      tour["status"] = tour["status"] === "active" ? "inactive" : "active";
+      await tour.save();
+
+      req.flash("success", "Cập nhật trạng thái tour thành công");
+    } else {
+      req.flash("error", "Tour không tồn tại");
+    }
+
+    res.redirect("back");
+  } catch (error) {
+    console.error("Lỗi khi cập nhật trạng thái tour:", error);
+    req.flash("error", "Có lỗi xảy ra, vui lòng thử lại!");
+    res.redirect("back");
+  }
+};
+
+// [DELETE] /admin/tours/delete/:id
+export const deleteTour = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const tourID = req.params.id;
+    const tour = await Tour.findByPk(tourID);
+
+    if (tour) {
+      await tour.destroy(); // Xóa khỏi database
+      req.flash("success", "Xóa tour thành công");
+    } else {
+      req.flash("error", "Tour không tồn tại");
+    }
+
+    res.redirect("back");
+  } catch (error) {
+    console.error("Lỗi khi xóa tour:", error);
+    req.flash("error", "Có lỗi xảy ra, vui lòng thử lại!");
+    res.redirect("back");
+  }
+};

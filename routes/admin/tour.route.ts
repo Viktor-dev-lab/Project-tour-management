@@ -17,7 +17,8 @@ router.post(
   controller.createPost
 );
 
-
+router.patch('/change-status/:id', controller.changeStatus);
+router.delete('/delete/:id', controller.deleteTour);
 
 export const toursRoutes: Router = router;
 

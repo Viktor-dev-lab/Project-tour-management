@@ -11,8 +11,11 @@
   "description": "",
   "dependencies": {
     "cloudinary": "^2.6.0",
+    "connect-flash": "^0.1.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "method-override": "^3.0.0",
     "multer": "^1.4.5-lts.2",
     "mysql2": "^3.13.0",
     "pug": "^3.0.3",
@@ -22,6 +25,7 @@
     "tinymce": "^7.7.2"
   },
   "devDependencies": {
+    "@types/connect-flash": "^0.0.40",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
     "nodemon": "^3.1.9",

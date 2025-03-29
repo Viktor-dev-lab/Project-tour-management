@@ -11,8 +11,6 @@ export const index = async (req: Request, res: Response) => {
 export const listJson = async (req: Request, res: Response) => {
   const tours = req.body;
   
-  console.log(tours)
-  
   for (const tour of tours){
     const infoTour = await Tour.findOne({
       where: {

@@ -1,8 +1,14 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block css
+  link(rel="stylesheet" href="/admin/css/alert.css")
 
 block content
   .container-fluid
     h2.text-center.mb-4 #{pageTitle}
+    +alert-success(3000)
+    +alert-error(3000)
 
     // Thanh chức năng (Tìm kiếm, Lọc, Thêm mới)
     .d-flex.align-items-center.mb-4.gap-3
@@ -52,9 +58,27 @@ block content
               td.text-warning #{tour.discount}%
               td.text-danger #{tour.price_special.toLocaleString()}₫
               td
-                span.badge(class=tour.status === 'active' ? 'bg-success' : 'bg-secondary')= tour.status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+                form(
+                  method="POST", 
+                  action=`/admin/tours/change-status/${tour.id}?_method=PATCH`, 
+                  style="display:inline;"
+                )
+                  button.badge(
+                    type="submit",
+                    class=tour.status === 'active' ? 'bg-success' : 'bg-secondary',
+                    style="text-decoration: none; border: none; background: none; cursor: pointer;"
+                  )= tour.status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+
               td #{tour.position}
               td
                 .btn-group
                   a.btn.btn-primary.btn-sm(href=`/admin/tours/edit/${tour.id}`) Chỉnh sửa
-                  a.btn.btn-danger.btn-sm(href=`/admin/tours/delete/${tour.id}`) Xóa
+                  form(
+                    method="POST", 
+                    action=`/admin/tours/delete/${tour.id}?_method=DELETE`, 
+                    style="display:inline;"
+                  )
+                    button.btn.btn-danger.btn-sm(
+                      type="submit", 
+                      onclick="return confirm('Bạn có chắc chắn muốn xóa tour này?');"
+                    ) Xóa

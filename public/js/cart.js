@@ -9,6 +9,7 @@ const drawListTour = () => {
   })
     .then(res => res.json())
     .then(data => {
+
       console.log(data)
       const listTour = document.querySelector("[list-tour]");
       if (!listTour) {

@@ -74,8 +74,15 @@ var swiper = new Swiper(".mySwiperTourInfo", {
 });
 // End Slider Dashboard
 
-
-
+// Carts
+// Kiểm tra giỏ hàng trong localStorage
+let cart = localStorage.getItem("cart");
+// Nếu chưa có, tạo mới giỏ hàng rỗng
+if (!cart) {
+  localStorage.setItem("cart", JSON.stringify([]));
+} else {
+  cart = JSON.parse(cart); // Chuyển về mảng để thao tác
+}
 
 // Show count cart
 const showMiniCart = () => {
@@ -89,15 +96,6 @@ const showMiniCart = () => {
 showMiniCart();
 // End Show count cart
 
-// Carts
-// Kiểm tra giỏ hàng trong localStorage
-let cart = localStorage.getItem("cart");
-// Nếu chưa có, tạo mới giỏ hàng rỗng
-if (!cart) {
-  localStorage.setItem("cart", JSON.stringify([]));
-} else {
-  cart = JSON.parse(cart); // Chuyển về mảng để thao tác
-}
 // Lấy form giỏ hàng
 const formCart = document.getElementById('cartForm');
 if (formCart) {

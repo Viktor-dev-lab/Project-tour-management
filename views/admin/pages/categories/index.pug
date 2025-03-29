@@ -1,8 +1,14 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block css
+  link(rel="stylesheet" href="/admin/css/alert.css")
 
 block content
   .container-fluid
     h2.text-center.mb-4 #{pageTitle}
+    +alert-success(3000)
+    +alert-error(3000)
 
     // Thanh chức năng (Căn đều các mục)
     .d-flex.align-items-center.mb-4.gap-3
@@ -46,8 +52,26 @@ block content
               td #{category.title}
               td.text-muted #{category.description}
               td
-                span.badge(class=category.status === 'active' ? 'bg-success' : 'bg-secondary')= category.status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+                form(
+                  method="POST", 
+                  action=`/admin/categories/change-status/${category.id}?_method=PATCH`, 
+                  style="display:inline;"
+                )
+                  button.badge(
+                    type="submit",
+                    class=category.status === 'active' ? 'bg-success' : 'bg-secondary',
+                    style="text-decoration: none; border: none; background: none; cursor: pointer;"
+                  )= category.status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+
               td
                 .btn-group
                   a.btn.btn-primary.btn-sm(href=`/admin/categories/edit/${category.id}`) Chỉnh sửa
-                  a.btn.btn-danger.btn-sm(href=`/admin/categories/delete/${category.id}`) Xóa
+                  form(
+                    method="POST", 
+                    action=`/admin/categories/delete/${category.id}?_method=DELETE`, 
+                    style="display:inline;"
+                  )
+                    button.btn.btn-danger.btn-sm(
+                      type="submit", 
+                      onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');"
+                    ) Xóa
